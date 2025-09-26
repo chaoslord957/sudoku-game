@@ -48,7 +48,7 @@ Built purely on **frontend** (HTML, CSS, JavaScript) — no backend yet.
 ## 💻 How to Run
 
 1. Clone this repo  
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/chaoslord957/sudoku-game.git
 
 made with ❤️ by DebanjanBanerjee
 
