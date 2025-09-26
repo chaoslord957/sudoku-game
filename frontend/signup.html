@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%; height: 100%;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+    }
+
+    #signupCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #signupPage {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    #signupBox {
+      position: relative;
+      z-index: 2;
+      background: rgba(47, 49, 180, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: rgb(41, 6, 6);
+    }
+
+    #signupBox input {
+      padding: 0.6rem;
+      width: 80%;
+      
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      color: rgb(40, 15, 15);
+    }
+
+    #signupBox button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #ccff00;
+      cursor: pointer;
+    }
+
+    #signupBox button:hover {
+      background: #d4ff00;
+    }
+
+    #loginBox a {
+  color: #ccff00;
+  text-decoration: underline;
+}
+#loginBox a:hover {
+  color: #d4ff00;
+}
+  </style>
+</head>
+<body>
+  <canvas id="signupCanvas"></canvas>
+
+  <div id="signupPage">
+    <div id="signupBox">
+      <h2>Sign Up</h2><br>
+      <input id="newUsername" type="text" placeholder="Username" /><br><br>
+      <input id="newPassword" type="password" placeholder="Password" /><br><br>
+      <button onclick="handleSignup()">Create Account</button>
+
+      <p style="margin-top: 1rem; font-size: 0.9rem;">
+  New user? <a href="index.html" style="color: #ccff00; text-decoration: underline;">Register here!</a>
+</p>
+    </div>
+  </div>
+
+  <script>
+const BASE_URL = "http://localhost:5000"; // make sure your backend is running here
+
+async function handleSignup() {
+  const username = document.getElementById('newUsername').value.trim();
+  const password = document.getElementById('newPassword').value.trim();
+
+  if (!username || !password) {
+    alert('Please enter both username and password.');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+
+    if (res.status === 200) {
+      alert("Signup successful! Redirecting to login...");
+      window.location.href = "index.html"; // go to login page
+    } else {
+      alert(data.message); // e.g., username already exists
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error, try again later!");
+  }
+}
+
+
+    // Snowball animation
+    (function(){
+      const canvas = document.getElementById('signupCanvas');
+      const ctx = canvas.getContext('2d');
+      const colors = ['#ff77a9','#77aaff'];
+      let particles = [];
+
+      function resize(){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+      }
+
+      function initParticles(){
+        particles = [];
+        for(let i=0; i<60; i++){
+          particles.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            r: 2 + Math.random()*4,
+            vx: -0.3 + Math.random()*0.6,
+            vy: 0.2 + Math.random()*0.4,
+            color: colors[Math.floor(Math.random()*colors.length)]
+          });
+        }
+      }
+
+      function draw(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for(let p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+          if(p.y - p.r > canvas.height) p.y = -p.r;
+          if(p.x - p.r > canvas.width)  p.x = -p.r;
+          if(p.x + p.r < 0)             p.x = canvas.width + p.r;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      draw();
+    })();
+  </script>
+</body>
+</html>
