@@ -3,7 +3,7 @@
 A fun and interactive Sudoku-style web app with a gamified twist!  
 Built purely on **frontend** (HTML, CSS, JavaScript) — no backend yet.  
 
-🌐 **Live Demo:** [Play Here](https://kaleidoscopic-sorbet-0cb12a.netlify.app/)
+🌐 **Live Demo:** [Play Here](https://neon-sudoku.netlify.app/)
 
 ---
 
