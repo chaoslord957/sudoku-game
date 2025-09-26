@@ -27,7 +27,10 @@ Built purely on **frontend** (HTML, CSS, JavaScript) — no backend yet.
 
 - **HTML** – Structure  
 - **CSS** – Styling  
-- **JavaScript** – Game logic & interactivity  
+- **JavaScript** – Game logic & interactivity
+- **Node.js**- connecting with backend
+- **MongoDB**- storing the data in the database
+- **Render**- deplyoing the backend live!
 
 ---
 
@@ -37,6 +40,9 @@ Built purely on **frontend** (HTML, CSS, JavaScript) — no backend yet.
 - 💾 Save progress & stats  
 - 📱 Responsive improvements  
 
+---
+## Latest Updates!
+- Backend is live now! real Login?signup feature is available!
 ---
 
 ## 💻 How to Run
